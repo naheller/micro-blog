@@ -25,23 +25,10 @@
 	  <div class="h-entry">
 		
 
-		<a href="https://blog.naheller.com/2026/02/15/an-ode-to-our-french/" class="u-url"><time class="dt-published" datetime="2026-02-16 04:38:57 &#43;0700">Feb 16, 2026</time></a>
+		<a href="https://blog.naheller.com/2026/05/24/an-ode-to-our-french/" class="u-url"><time class="dt-published" datetime="2026-05-24 12:59:27 &#43;0700">May 24, 2026</time></a>
 
 		<div class="e-content">
 			 <p>An ode to our French commode in Montpellier. With a convenient location right by the front door, looks like my business just became yours!</p>
-<p><!-- raw HTML omitted --><!-- raw HTML omitted --></p>
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2026/02/07/this-is-your-reminder-that/" class="u-url"><time class="dt-published" datetime="2026-02-07 18:02:45 &#43;0700">Feb 7, 2026</time></a>
-
-		<div class="e-content">
-			 <p>This is your reminder that a band exists with the name Eximperituserqethhzebibšiptugakkathšulweliarzaxułum.</p>
-<p>Their logo is no less impressive. 🎶</p>
 <!-- raw HTML omitted -->
 
 		</div>
@@ -49,138 +36,90 @@
 	
 	  <div class="h-entry">
 		
-
-		<a href="https://blog.naheller.com/2026/02/03/where-in-the-world-is/" class="u-url"><time class="dt-published" datetime="2026-02-04 04:09:17 &#43;0700">Feb 4, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Where in the world is …?</p>
-<!-- raw HTML omitted -->
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
+			<h1><a href="https://blog.naheller.com/2026/05/24/twos-complement/">Two&#39;s Complement</a></h1>
 		
 
-		<a href="https://blog.naheller.com/2026/01/20/yesterday-we-patrolled-the-walls/" class="u-url"><time class="dt-published" datetime="2026-01-21 05:06:14 &#43;0700">Jan 21, 2026</time></a>
+		<a href="https://blog.naheller.com/2026/05/24/twos-complement/" class="u-url"><time class="dt-published" datetime="2026-05-24 12:54:44 &#43;0700">May 24, 2026</time></a>
 
 		<div class="e-content">
-			 <p>Yesterday we patrolled the walls of Óbidos like proper 14th century guards. The only vagrant we spotted was a cat digging through the trash. We let him off with a warning.</p>
-<p>🗺️</p>
-<!-- raw HTML omitted -->
+			 <p>Two&rsquo;s Complement is a way to represent positive and negative numbers in binary. It&rsquo;s useful because we want a way to represent each number&rsquo;s inverse within a limited number of bits.</p>
+<h2 id="the-sign-bit">The sign bit</h2>
+<p>Putting aside two&rsquo;s complement, the &ldquo;naive&rdquo; way to represent a negative number is to simply use its highest order bit as a &ldquo;sign&rdquo; bit. That is, <code>0</code> for positive and <code>1</code> for negative.</p>
+<p>With 4 bits</p>
+<pre tabindex="0"><code>5 = 0101
+-5 = 1101
+</code></pre><p>With 8 bits:</p>
+<pre tabindex="0"><code> 5 = 00000101
+-5 = 10000101
+</code></pre><p>However with this method, arithmetic operations come out wrong. for example:</p>
+<pre tabindex="0"><code>5 + (-5) = 2
 
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
+ 0101
++1101
+-----
+10010 = 2
+</code></pre><p>We also have the curious existence of <code>-0</code>, if we flip the sign bit on <code>0</code>:</p>
+<pre tabindex="0"><code> 0 = 0000
+-0 = 1000
+</code></pre><p>So we need a better method.</p>
+<h2 id="ones-complement">One&rsquo;s Complement</h2>
+<p>This method inverts all the bits in a number to get its positive/negative equivalent, or &ldquo;complement&rdquo;. The reason it&rsquo;s called <em>One&rsquo;s</em> Complement is that adding a number to its inverse results in a sequence of all ones: <code>1111</code>.</p>
+<p>Notice that left-most bit still acts as a sign bit:</p>
+<pre tabindex="0"><code> 5 = 0101
+-5 = 1010
 
-		<a href="https://blog.naheller.com/2026/01/17/we-hung-out-with-a/" class="u-url"><time class="dt-published" datetime="2026-01-17 17:01:48 &#43;0700">Jan 17, 2026</time></a>
+ 7 = 0111
+-7 = 1000
+</code></pre><p>Unfortunately we still have <code>-0</code>, but arithmetic operations are <em>more</em> correct than before:</p>
+<pre tabindex="0"><code> 0 = 0000
+-0 = 1111
 
-		<div class="e-content">
-			 <p>We hung out with a <a href="https://peregrinefund.org/explore-raptors-species/falcons/lanner-falcon">Lanner Falcon</a> named Reggie last month in San Diego. After feeding him treats, we sent him off to fly up and down the coast at his leisure. We tried to coax him back for one last encounter, but he had better things to do. Who can blame him?</p>
-<!-- raw HTML omitted -->
+5 + (-5) = -0
 
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
+ 0101
++1010
+-----
+ 1111 = -0
+</code></pre><p>In fact, arithmetic results seem to be off by one:</p>
+<pre tabindex="0"><code>5 + (-3) = 1
 
-		<a href="https://blog.naheller.com/2026/01/15/visited-pena-palace-yesterday-where/" class="u-url"><time class="dt-published" datetime="2026-01-15 23:29:02 &#43;0700">Jan 15, 2026</time></a>
+   0101
++  1100
+-------
+(1)0001 = 1 (should be 2)
 
-		<div class="e-content">
-			 <p>Visited Pena Palace yesterday where I found this intricate stained glass window in a chapel. If you look over the king&rsquo;s shoulder you&rsquo;ll see the palace itself in the distance. If you squint, you can see an arched window. That&rsquo;s this window! The art contains a depiction of itself, ad infinitum.</p>
-<p>🎨</p>
-<!-- raw HTML omitted -->
+6 + (-2) = 3
 
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
+   0110
++  1101
+-------
+(1)0011 = 3 (should be 4)
+</code></pre><p>By adding 1 to any of the above results, we can get the correct result.</p>
+<h2 id="twos-complement">Two&rsquo;s Complement</h2>
+<p>With Two&rsquo;s Complement we get rid of <code>-0</code>, which shifts the negative numbers over by one. For example, <code>-1</code> in One&rsquo;s Complement is <code>1110</code>, whereas in Two&rsquo;s Complement it is <code>1111</code>. This has the effect of &ldquo;incrementing&rdquo; it in binary, thereby giving us the added 1 we wanted in order to achieve correct arithmetic results.</p>
+<p>This method is called <em>Two&rsquo;s</em> Complement because when adding a number to its inverse, each addition operation results in the binary value for 2. This effectively &ldquo;carries the one&rdquo; all the way over to the left and into the overflow, giving us a sequence of zeroes. And any number added to its inverse should indeed be zero.</p>
+<pre tabindex="0"><code>5 + (-5) = 0
 
-		<a href="https://blog.naheller.com/2026/01/13/view-of-lisbon-from-miradouro/" class="u-url"><time class="dt-published" datetime="2026-01-13 16:47:48 &#43;0700">Jan 13, 2026</time></a>
-
-		<div class="e-content">
-			 <p>View of Lisbon from Miradouro da Graça (Grace Viewpoint). Almost too much to take in at once. After losing our sense of direction in the labyrinthine side streets of Alfama, this was like coming up for air.</p>
-<p>I bet the sunsets are hideous here.</p>
-<p>🗺️</p>
-<!-- raw HTML omitted -->
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2026/01/12/slept-in-past-for-the/" class="u-url"><time class="dt-published" datetime="2026-01-12 19:31:53 &#43;0700">Jan 12, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Slept in past 11 for the third day in a row since arriving in Lisbon. I think it’s a combination of the time change and having completely empty schedules. The comfy bed doesn’t help either!</p>
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2026/01/10/finished-reading-the-hot-zone/" class="u-url"><time class="dt-published" datetime="2026-01-10 16:04:15 &#43;0700">Jan 10, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Finished reading: <a href="https://micro.blog/books/9780307817655">The Hot Zone</a> by Richard Preston 📚</p>
-<p>Preston has a great flare for rich visual descriptions. This is well used when evoking the sights of the African wilderness, and especially when describing the gruesome effects of Ebola. The first third of the book is compelling because it&rsquo;s filled with both of these things. However the latter two-thirds is more of a medical procedural set in the US, which is much less exciting.</p>
-<p>Preston mentions that this book began as a New Yorker piece - I wonder if that&rsquo;s the better format. Maybe I&rsquo;ll chase the article down. My takeaways are that Ebola is a terrifying virus, humans are fragile bags of meat, and also maybe I should check out some of Preston&rsquo;s fiction.</p>
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2026/01/09/made-it-to-lisbon-and/" class="u-url"><time class="dt-published" datetime="2026-01-10 04:04:13 &#43;0700">Jan 10, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Made it to Lisbon and our first meal was pasta and tomato sauce from the grocery store. Sometimes you just need comfort food after a long travel day. We&rsquo;ll make up for it by finding a local <em>tasca</em> just as soon as we kick the jet lag. Obrigado!</p>
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-			<h1><a href="https://blog.naheller.com/2026/01/08/last-day-in-la/">Last day in LA</a></h1>
-		
-
-		<a href="https://blog.naheller.com/2026/01/08/last-day-in-la/" class="u-url"><time class="dt-published" datetime="2026-01-08 21:59:43 &#43;0700">Jan 8, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Spent our last day in LA in Santa Monica walking the pier after breakfast at Rae’s. Apparently a scene from True Romance was filmed there. Whatever happened to Christian Slater?</p>
-<p>Had dinner with Neil at a ramen spot in Culver City where the waiter was very particular about how we should eat our Yuzu Cheesecake. It was good advice!</p>
-<p>Then back to the Airbnb to pack and watch House Hunters before an early morning flight.</p>
-<p>Now we’re sitting in the terminal and I have one final remark: dear LAX, please have mercy and refrain from blasting Taylor Swift dubstep remixes into the terminal at 6am. Thank you.</p>
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2026/01/06/had-breakfast-at-panns-in/" class="u-url"><time class="dt-published" datetime="2026-01-07 03:25:57 &#43;0700">Jan 7, 2026</time></a>
-
-		<div class="e-content">
-			 <p>Had breakfast at Pann&rsquo;s in LA this morning. Great retro futuristic vibes, friendly service, big omelets. Felt like a time capsule. I could see us becoming regulars at a place like this (if we weren&rsquo;t leaving in two days).</p>
-<!-- raw HTML omitted -->
-
-		</div>
-	  </div>
-	
-	  <div class="h-entry">
-		
-
-		<a href="https://blog.naheller.com/2025/12/31/this-is-a-test-post/" class="u-url"><time class="dt-published" datetime="2025-12-31 14:11:23 &#43;0700">Dec 31, 2025</time></a>
-
-		<div class="e-content">
-			 <p>this is a test post</p>
+   0101
++  1011
+-------
+(1)0000 = 0
+</code></pre><p>Another interesting property of Two&rsquo;s Complement is the place values. From right to left in a 4-bit sequence, we have 1&rsquo;s, 2&rsquo;s, and 4&rsquo;s places as expected. However the final bit is actually the -8&rsquo;s place.</p>
+<p>For example:</p>
+<pre tabindex="0"><code>1000    -8 (-8 + 0 + 0 + 0) = -8
+1001    -7 (-8 + 0 + 0 + 1) = -7
+1010    -6 (-8 + 0 + 2 + 0) = -6
+.
+.
+.
+1111    -1 (-8 + 4 + 2 + 1) = -1
+</code></pre><p>So in addition to acting as the sign bit, that left-most bit also has mathematical meaning, which is what allows the arithmetic to work out.</p>
+<h3 id="inverting-a-number-in-twos-complement">Inverting a number in Two&rsquo;s Complement</h3>
+<p>To invert a number in Two&rsquo;s Complement, we need to flip its bits and add one. This is one more step than with One&rsquo;s Complement, where we only need to flip the bits.</p>
+<pre tabindex="0"><code>0101 = 5
+1010 (flip bits)
+1011 = -5 (add one)
+</code></pre><p>This is fairly trivial, but something that hardware designers need to keep in mind when building circuits that perform arithmetic.</p>
 
 		</div>
 	  </div>
